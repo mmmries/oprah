@@ -1,0 +1,7 @@
+<h1>Login</h1>
+<%= form_for @conn, session_path(@conn, :create), [as: :session], fn(form) -> %>
+  <div class="form-group">
+    <%= text_input form, :name, placeholder: "Username" %>
+  </div>
+  <%= submit "Log In", class: "btn btn-primary" %>
+<% end %>

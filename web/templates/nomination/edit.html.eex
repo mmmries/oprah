@@ -1,0 +1,6 @@
+<h2>Edit nomination</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: nomination_path(@conn, :update, @nomination) %>
+
+<%= link "Back", to: nomination_path(@conn, :index) %>
