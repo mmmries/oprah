@@ -23,7 +23,6 @@ defmodule Oprah.NominationController do
         |> put_flash(:info, "Nomination created successfully.")
         |> redirect(to: nomination_path(conn, :index))
       {:error, changeset} ->
-        IO.inspect(changeset)
         render(conn, "new.html", changeset: changeset)
     end
   end
@@ -49,6 +48,7 @@ defmodule Oprah.NominationController do
         |> put_flash(:info, "Nomination updated successfully.")
         |> redirect(to: nomination_path(conn, :show, nomination))
       {:error, changeset} ->
+        IO.inspect(changeset)
         render(conn, "edit.html", nomination: nomination, changeset: changeset)
     end
   end

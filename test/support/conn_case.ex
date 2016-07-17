@@ -14,6 +14,8 @@ defmodule Oprah.ConnCase do
   """
 
   use ExUnit.CaseTemplate
+  import Oprah.TestHelpers
+  import Plug.Conn
 
   using do
     quote do
@@ -39,6 +41,12 @@ defmodule Oprah.ConnCase do
       Ecto.Adapters.SQL.Sandbox.mode(Oprah.Repo, {:shared, self()})
     end
 
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    conn = Phoenix.ConnTest.build_conn()
+    if tags[:login_as] do
+      user = insert_user(tags[:login_as])
+      {:ok, conn: assign(conn, :current_user, user), user: user}
+    else
+      {:ok, conn: conn}
+    end
   end
 end

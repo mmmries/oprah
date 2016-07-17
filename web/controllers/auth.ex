@@ -5,6 +5,7 @@ defmodule Oprah.Auth do
     Keyword.fetch!(opts, :repo)
   end
 
+  def call(%{assigns: %{current_user: _user}}=conn, _repo), do: conn
   def call(conn, repo) do
     case get_session(conn, :user_id) do
       nil -> conn
