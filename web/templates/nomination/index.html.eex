@@ -1,32 +1,19 @@
-<h2>Listing nominations</h2>
+<h2>Recent Nominations</h2>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Nominee</th>
-      <th>Body</th>
-      <th>Nominated by</th>
-      <th>Awarded at</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
 <%= for nomination <- @nominations do %>
-    <tr>
-      <td><%= nomination.nominee_id %></td>
-      <td><%= nomination.body %></td>
-      <td><%= nomination.nominated_by_id %></td>
-      <td><%= nomination.awarded_at %></td>
-
-      <td class="text-right">
-        <%= link "Show", to: nomination_path(@conn, :show, nomination), class: "btn btn-default btn-xs" %>
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <h3 class="panel-title"><%= nomination.nominee.name %></h3>
+    </div>
+    <div class="panel-body">
+      <%= nomination.body %>
+    </div>
+    <div class="panel-footer">
+      <%= nomination.nominated_by.name %>
+      <%= if nomination.nominated_by == @current_user do %>
         <%= link "Edit", to: nomination_path(@conn, :edit, nomination), class: "btn btn-default btn-xs" %>
         <%= link "Delete", to: nomination_path(@conn, :delete, nomination), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-      </td>
-    </tr>
+      <% end %>
+    </div>
+  </div>
 <% end %>
-  </tbody>
-</table>
-
-<%= link "New nomination", to: nomination_path(@conn, :new) %>

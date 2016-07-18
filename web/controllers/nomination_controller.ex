@@ -4,7 +4,10 @@ defmodule Oprah.NominationController do
   plug :require_current_user
 
   def index(conn, _params) do
-    nominations = Repo.all(Nomination)
+    query = from n in Nomination,
+            where: is_nil(n.awarded_at),
+            preload: [:nominee, :nominated_by]
+    nominations = Repo.all(query)
     render(conn, "index.html", nominations: nominations)
   end
 
@@ -14,8 +17,8 @@ defmodule Oprah.NominationController do
   end
 
   def create(conn, %{"nomination" => nomination_params}) do
-    nomination = %Nomination{nominated_by_id: conn.assigns.current_user.id, nominee_id: String.to_integer(nomination_params["nominee_id"])}
-    changeset = Nomination.changeset(nomination, nomination_params)
+    nomination_params = Map.put(nomination_params, "nominated_by_id", conn.assigns.current_user.id)
+    changeset = Nomination.changeset(%Nomination{}, nomination_params)
 
     case Repo.insert(changeset) do
       {:ok, _nomination} ->
