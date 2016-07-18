@@ -1,6 +1,6 @@
 defmodule Oprah.UserController do
   use Oprah.Web, :controller
-  plug :require_current_user
+  plug :require_current_user when action != :create
 
   def index(conn, _params) do
     users = Repo.all(User)
