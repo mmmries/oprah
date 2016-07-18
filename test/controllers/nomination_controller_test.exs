@@ -6,7 +6,7 @@ defmodule Oprah.NominationControllerTest do
   @tag login_as: "dan"
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, nomination_path(conn, :index)
-    assert html_response(conn, 200) =~ "Listing nominations"
+    assert html_response(conn, 200) =~ "Recent Nominations"
   end
 
   @tag login_as: "dan"
