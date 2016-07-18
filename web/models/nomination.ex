@@ -4,8 +4,8 @@ defmodule Oprah.Nomination do
   schema "nominations" do
     field :body, :string
     field :awarded_at, Ecto.DateTime
-    belongs_to :nominee, Oprah.Nominee
-    belongs_to :nominated_by, Oprah.NominatedBy
+    belongs_to :nominee, Oprah.User
+    belongs_to :nominated_by, Oprah.User
 
     timestamps()
   end
@@ -15,7 +15,7 @@ defmodule Oprah.Nomination do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:body, :awarded_at])
+    |> cast(params, [:body, :awarded_at, :nominee_id, :nominated_by_id])
     |> validate_required([:body, :nominee_id, :nominated_by_id])
   end
 end

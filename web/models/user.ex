@@ -3,7 +3,8 @@ defmodule Oprah.User do
 
   schema "users" do
     field :name, :string
-
+    has_many :nominations_received, Oprah.Nomination, foreign_key: :nominee_id
+    has_many :nominations_given, Oprah.Nomination, foreign_key: :nominated_by_id
     timestamps()
   end
 
