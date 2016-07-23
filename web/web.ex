@@ -56,6 +56,12 @@ defmodule Oprah.Web do
       import Oprah.Router.Helpers
       import Oprah.ErrorHelpers
       import Oprah.Gettext
+
+      def markdown_render(str) do
+        {:safe, escaped} = html_escape(str)
+        rendered = Earmark.to_html(escaped, %Earmark.Options{gfm: true})
+        {:safe, rendered}
+      end
     end
   end
 
