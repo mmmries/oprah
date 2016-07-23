@@ -1,0 +1,5 @@
+<h2>Nominate Someone</h2>
+
+<%= for user <- @users do %>
+  <div><%= nomination_link(@conn, user, user.name) %></div>
+<% end %>

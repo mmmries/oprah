@@ -1,7 +1,7 @@
 defmodule Oprah.NominationController do
   use Oprah.Web, :controller
   alias Oprah.Nomination
-  plug :require_current_user when action != :index
+  plug :require_current_user when action != :pick_a_nominee
 
   def index(conn, _params) do
     query = from n in Nomination,
@@ -10,6 +10,13 @@ defmodule Oprah.NominationController do
             order_by: [desc: n.inserted_at]
     nominations = Repo.all(query)
     render(conn, "index.html", nominations: nominations)
+  end
+
+  def pick_a_nominee(conn, _params) do
+    query = from u in Oprah.User,
+            order_by: [asc: u.name]
+    users = Repo.all(query)
+    render(conn, "pick_a_nominee.html", users: users)
   end
 
   def new(conn, %{"nomination" => params}) do
@@ -32,8 +39,11 @@ defmodule Oprah.NominationController do
   end
 
   def show(conn, %{"id" => id}) do
-    nomination = Repo.get!(Nomination, id)
-    render(conn, "show.html", nomination: nomination)
+    query = from n in Nomination,
+            where: [id: ^id],
+            preload: [:nominee, :nominated_by]
+    nomination = Repo.one(query)
+    render(conn, "_nomination.html", nomination: nomination)
   end
 
   def edit(conn, %{"id" => id}) do

@@ -1,19 +1,5 @@
 <h2>Recent Nominations</h2>
 
 <%= for nomination <- @nominations do %>
-  <div class="panel panel-success">
-    <div class="panel-heading">
-      <h3 class="panel-title"><%= nomination.nominee.name %></h3>
-    </div>
-    <div class="panel-body">
-      <%= markdown_render(nomination.body) %>
-    </div>
-    <div class="panel-footer">
-      <%= nomination.nominated_by.name %>
-      <%= if @conn.assigns[:current_user] && nomination.nominated_by == @current_user do %>
-        <%= link "Edit", to: nomination_path(@conn, :edit, nomination), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: nomination_path(@conn, :delete, nomination), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-      <% end %>
-    </div>
-  </div>
+  <%= render "_nomination.html", conn: @conn, current_user: @current_user, nomination: nomination %>
 <% end %>

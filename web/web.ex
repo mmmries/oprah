@@ -62,6 +62,10 @@ defmodule Oprah.Web do
         rendered = Earmark.to_html(escaped, %Earmark.Options{gfm: true})
         {:safe, rendered}
       end
+
+      def nomination_link(conn, user, text) do
+        link text, to: nomination_path(conn, :new, %{nomination: %{nominee_id: user.id}})
+      end
     end
   end
 
