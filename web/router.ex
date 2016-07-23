@@ -25,8 +25,10 @@ defmodule Oprah.Router do
     resources "/nominations", NominationController
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Oprah do
-  #   pipe_through :api
-  # end
+  scope "/auth", Oprah do
+    pipe_through :browser
+
+    get "/:provider", SessionController, :request
+    get "/:provider/callback", SessionController, :callback
+  end
 end

@@ -18,4 +18,10 @@ defmodule Oprah.User do
     |> validate_length(:name, min: 4, max: 20)
     |> unique_constraint(:name)
   end
+
+  def user_from_uberauth_info(uid, name) do
+    %Oprah.User{}
+    |> cast(%{id: uid, name: name}, [:id, :name])
+    |> Oprah.Repo.insert_or_update!
+  end
 end
