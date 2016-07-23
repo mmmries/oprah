@@ -9,3 +9,7 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+Oprah.Repo.insert!(%Oprah.User{name: "Ron Swanson"})
+Oprah.Repo.insert!(%Oprah.User{name: "Leslie Knope"})
+Oprah.Repo.insert!(%Oprah.User{name: "Burt Macklin"})
+Oprah.Repo.insert!(%Oprah.User{name: "Tom Haverford"})
