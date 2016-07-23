@@ -5,7 +5,7 @@ if [ -z "$version" ]
     exit 1
 fi
 
-
+brunch build --production
 docker build -t hqmq/oprah:$version .
 docker push hqmq/oprah:$version
 git tag v$version
