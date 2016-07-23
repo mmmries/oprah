@@ -6,7 +6,8 @@ defmodule Oprah.NominationController do
   def index(conn, _params) do
     query = from n in Nomination,
             where: is_nil(n.awarded_at),
-            preload: [:nominee, :nominated_by]
+            preload: [:nominee, :nominated_by],
+            order_by: [desc: n.inserted_at]
     nominations = Repo.all(query)
     render(conn, "index.html", nominations: nominations)
   end
@@ -51,7 +52,6 @@ defmodule Oprah.NominationController do
         |> put_flash(:info, "Nomination updated successfully.")
         |> redirect(to: nomination_path(conn, :show, nomination))
       {:error, changeset} ->
-        IO.inspect(changeset)
         render(conn, "edit.html", nomination: nomination, changeset: changeset)
     end
   end
