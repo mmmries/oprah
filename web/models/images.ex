@@ -5,6 +5,10 @@ defmodule Oprah.Images do
     random_image_path(conn, "errors")
   end
 
+  def success_url(conn) do
+    random_image_path(conn, "success")
+  end
+
   defp random_image_path(conn, group) do
     :rand.seed(:exsplus, :erlang.now)
     relative_dir = "priv/static/images/#{group}"
