@@ -3,7 +3,7 @@
     <div class="alert alert-danger">
       <p>Oops, something went wrong!</p>
       <ul>
-        <%= Enum.map @changeset.errors, fn({key, {error, _keyword}}) -> %>
+        <%= Enum.map @changeset.errors, fn({_key, {error, _keyword}}) -> %>
           <li><%= error %></li>
         <% end %>
       </ul>

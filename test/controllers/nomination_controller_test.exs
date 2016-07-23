@@ -3,8 +3,26 @@ defmodule Oprah.NominationControllerTest do
 
   alias Oprah.{Nomination,User}
 
-  @tag login_as: "dan"
+  setup tags do
+    if tags[:nomination] do
+      dan = Repo.insert!(%User{name: "dan"})
+      don = Repo.insert!(%User{name: "don"})
+      nomination = Repo.insert!(%Nomination{nominee_id: don.id, nominated_by_id: dan.id, body: "yo"})
+      {:ok, nomination: nomination}
+    else
+      :ok
+    end
+  end
+
+  @tag login_as: "ron"
+  @tag :nomination
   test "lists all entries on index", %{conn: conn} do
+    conn = get conn, nomination_path(conn, :index)
+    assert html_response(conn, 200) =~ "Recent Nominations"
+  end
+
+  @tag :nomination
+  test "lists all entries on index for guests", %{conn: conn} do
     conn = get conn, nomination_path(conn, :index)
     assert html_response(conn, 200) =~ "Recent Nominations"
   end
