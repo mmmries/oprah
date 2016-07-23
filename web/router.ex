@@ -17,7 +17,7 @@ defmodule Oprah.Router do
   scope "/", Oprah do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", NominationController, :index
     get "/login", SessionController, :login
     get "/logout", SessionController, :logout
     post "/login", SessionController, :create

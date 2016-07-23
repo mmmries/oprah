@@ -20,8 +20,11 @@ defmodule Oprah.User do
   end
 
   def user_from_uberauth_info(uid, name) do
-    %Oprah.User{}
-    |> cast(%{id: uid, name: name}, [:id, :name])
-    |> Oprah.Repo.insert_or_update!
+    case Repo.get(User, uid) do
+      nil -> Repo.insert!(%User{id: uid, name: name})
+      user ->
+        cast(user, %{name: name}, [:name])
+        |> Oprah.Repo.update!
+      end
   end
 end

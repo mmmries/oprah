@@ -16,7 +16,7 @@ defmodule Oprah.SessionController do
   end
 
   def logout(conn, _params) do
-    conn |> configure_session(drop: true) |> redirect(to: session_path(conn, :login))
+    conn |> configure_session(drop: true) |> redirect(to: nomination_path(conn, :index))
   end
 
   def callback(%{assigns: %{ueberauth_failure: %{errors: errors}}}=conn, _params) do

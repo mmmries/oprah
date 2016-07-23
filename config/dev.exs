@@ -41,3 +41,10 @@ config :oprah, Oprah.Repo,
   database: "oprah_dev",
   hostname: "localhost",
   pool_size: 10
+
+config :ueberauth, Ueberauth.Strategy.Github.OAuth,
+  client_id: String.trim(File.read!(".github_client_id")),
+  client_secret: String.trim(File.read!(".github_client_secret")),
+  site: "https://git.moneydesktop.com/api/v3",
+  authorize_url: "https://git.moneydesktop.com/login/oauth/authorize",
+  token_url: "https://git.moneydesktop.com/login/oauth/access_token"

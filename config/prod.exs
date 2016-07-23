@@ -25,5 +25,12 @@ config :oprah, Oprah.Repo,
   hostname: System.get_env("POSTGRES_HOST"),
   pool_size: 10
 
+config :ueberauth, Ueberauth.Strategy.Github.OAuth,
+  client_id: System.get_env("GITHUB_CLIENT_ID"),
+  client_secret: System.get_env("GITHUB_CLIENT_SECRET"),
+  site: "https://git.moneydesktop.com/api/v3",
+  authorize_url: "https://git.moneydesktop.com/login/oauth/authorize",
+  token_url: "https://git.moneydesktop.com/login/oauth/access_token"
+
 # Do not print debug messages in production
 config :logger, level: :info

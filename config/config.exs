@@ -26,12 +26,6 @@ config :ueberauth, Ueberauth,
   providers: [
     github: {Ueberauth.Strategy.Github, [default_scope: "", uid_field: :id]}
   ]
-config :ueberauth, Ueberauth.Strategy.Github.OAuth,
-  client_id: System.get_env("GITHUB_CLIENT_ID"),
-  client_secret: System.get_env("GITHUB_CLIENT_SECRET"),
-  site: "https://git.moneydesktop.com/api/v3",
-  authorize_url: "https://git.moneydesktop.com/login/oauth/authorize",
-  token_url: "https://git.moneydesktop.com/login/oauth/access_token"
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

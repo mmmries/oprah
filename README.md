@@ -34,7 +34,7 @@ git push --tags
 Finally we start the docker and give it the necessary environment variables:
 
 ```
-docker run --name oprah -d -e GITHUB_CLIENT_ID=123 -e GITHUB_CLIENT_SECRET=123 -e SECRETE_KEY_BASE=123 -e POSTGRES_USERNAME=pguser -e POSTGRES_PASSWORD=pgpass -e POSTGRES_HOST=localhost hqmq/oprah:0.1.0
+docker run --name oprah -d -p 4000:4000 -e PORT=4000 -e GITHUB_CLIENT_ID=123 -e GITHUB_CLIENT_SECRET=123 -e SECRETE_KEY_BASE=123 -e POSTGRES_USERNAME=pguser -e POSTGRES_PASSWORD=pgpass -e POSTGRES_HOST=localhost hqmq/oprah:0.1.0
 ```
 
 

@@ -1,7 +1,7 @@
 defmodule Oprah.NominationController do
   use Oprah.Web, :controller
   alias Oprah.Nomination
-  plug :require_current_user
+  plug :require_current_user when action != :index
 
   def index(conn, _params) do
     query = from n in Nomination,
