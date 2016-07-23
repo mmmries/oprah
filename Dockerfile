@@ -1,4 +1,4 @@
-FROM elixir:1.3.2
+FROM hqmq/docker-elixir:1.3.1.0
 
 ADD . /oprah
 WORKDIR /oprah
