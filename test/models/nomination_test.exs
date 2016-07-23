@@ -7,7 +7,8 @@ defmodule Oprah.NominationTest do
 
   test "changeset with valid attributes" do
     user = Repo.insert!(%User{name: "max"})
-    changeset = Nomination.changeset(%Nomination{nominated_by_id: user.id, nominee_id: user.id}, %{body: "body", nominee_id: user.id, nominated_by_id: user.id})
+    user2 = Repo.insert!(%User{name: "min"})
+    changeset = Nomination.changeset(%Nomination{}, %{body: "body", nominee_id: user.id, nominated_by_id: user2.id})
     assert changeset.valid?
   end
 

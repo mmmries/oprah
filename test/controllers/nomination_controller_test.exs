@@ -1,7 +1,7 @@
 defmodule Oprah.NominationControllerTest do
   use Oprah.ConnCase
 
-  alias Oprah.Nomination
+  alias Oprah.{Nomination,User}
 
   @tag login_as: "dan"
   test "lists all entries on index", %{conn: conn} do
@@ -16,10 +16,11 @@ defmodule Oprah.NominationControllerTest do
   end
 
   @tag login_as: "dan"
-  test "creates resource and redirects when data is valid", %{conn: conn, user: user} do
-    conn = post conn, nomination_path(conn, :create), nomination: valid_attrs(user)
+  test "creates resource and redirects when data is valid", %{conn: conn, user: _dan} do
+    don = Repo.insert!(%User{name: "don"})
+    conn = post conn, nomination_path(conn, :create), nomination: valid_attrs(don)
     assert redirected_to(conn) == nomination_path(conn, :index)
-    assert Repo.get_by(Nomination, nominee_id: user.id)
+    assert Repo.get_by(Nomination, nominee_id: don.id)
   end
 
   @tag login_as: "dan"
@@ -50,11 +51,12 @@ defmodule Oprah.NominationControllerTest do
   end
 
   @tag login_as: "dan"
-  test "updates chosen resource and redirects when data is valid", %{conn: conn, user: user} do
-    nomination = Repo.insert! %Nomination{nominated_by_id: user.id, nominee_id: user.id}
-    conn = put conn, nomination_path(conn, :update, nomination), nomination: valid_attrs(user)
+  test "updates chosen resource and redirects when data is valid", %{conn: conn, user: dan} do
+    don = Repo.insert!(%User{name: "don"})
+    nomination = Repo.insert! %Nomination{nominated_by_id: dan.id, nominee_id: don.id}
+    conn = put conn, nomination_path(conn, :update, nomination), nomination: valid_attrs(don)
     assert redirected_to(conn) == nomination_path(conn, :show, nomination)
-    assert Repo.get_by(Nomination, nominee_id: user.id)
+    assert Repo.get_by(Nomination, nominee_id: don.id)
   end
 
   @tag login_as: "dan"
@@ -73,10 +75,10 @@ defmodule Oprah.NominationControllerTest do
     refute Repo.get(Nomination, nomination.id)
   end
 
-  def valid_attrs(user) do
+  def valid_attrs(nominee) do
     %{
       body: "Just Cuz",
-      nominee_id: to_string(user.id),
+      nominee_id: to_string(nominee.id),
     }
   end
 end
