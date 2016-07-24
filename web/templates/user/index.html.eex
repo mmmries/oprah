@@ -11,8 +11,10 @@
   <tbody>
 <%= for user <- @users do %>
     <tr>
-      <td><%= user.name %></td>
-
+      <td>
+        <%= user.name %>
+        <%= avatar(user) %>
+      </td>
       <td class="text-right">
         <%= link "Show", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %>
         <%= link "Edit", to: user_path(@conn, :edit, user), class: "btn btn-default btn-xs" %>

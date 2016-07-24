@@ -57,6 +57,10 @@ defmodule Oprah.Web do
       import Oprah.ErrorHelpers
       import Oprah.Gettext
 
+      def avatar(user, size \\ 20) do
+        tag :img, src: "https://git.moneydesktop.com/avatars/u/#{user.id}", width: size
+      end
+
       def markdown_render(str) do
         {:safe, escaped} = html_escape(str)
         rendered = Earmark.to_html(escaped, %Earmark.Options{gfm: true})

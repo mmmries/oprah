@@ -1,11 +1,12 @@
 <div class="panel panel-success">
   <div class="panel-heading">
-    <h3 class="panel-title"><%= @nomination.nominee.name %></h3>
+    <h3 class="panel-title"><%= avatar(@nomination.nominee, 30) %><%= @nomination.nominee.name %></h3>
   </div>
   <div class="panel-body">
     <%= markdown_render(@nomination.body) %>
   </div>
   <div class="panel-footer">
+    <%= avatar(@nomination.nominated_by) %>
     <%= @nomination.nominated_by.name %>
     <%= if @conn.assigns[:current_user] && @nomination.nominated_by == @current_user do %>
       <%= link "Edit", to: nomination_path(@conn, :edit, @nomination), class: "btn btn-default btn-xs" %>

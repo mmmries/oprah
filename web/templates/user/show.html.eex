@@ -1,13 +1,6 @@
-<h2>Show user</h2>
+<h2><%= @user.name %></h2>
 
-<ul>
-
-  <li>
-    <strong>Name:</strong>
-    <%= @user.name %>
-  </li>
-
-</ul>
+<%= avatar(@user, 400) %>
 
 <%= link "Edit", to: user_path(@conn, :edit, @user) %>
 <%= link "Back", to: user_path(@conn, :index) %>
