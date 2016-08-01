@@ -42,7 +42,7 @@ defmodule Oprah.NominationController do
     query = from n in Nomination,
             where: [id: ^id],
             preload: [:nominee, :nominated_by]
-    nomination = Repo.one(query)
+    nomination = Repo.one!(query)
     render(conn, "_nomination.html", nomination: nomination)
   end
 

@@ -21,6 +21,7 @@ defmodule Oprah.NominationControllerTest do
     assert html_response(conn, 200) =~ "Recent Nominations"
   end
 
+  @tag login_as: "ron"
   @tag :nomination
   test "lists all entries on index for guests", %{conn: conn} do
     conn = get conn, nomination_path(conn, :index)
@@ -48,10 +49,10 @@ defmodule Oprah.NominationControllerTest do
   end
 
   @tag login_as: "dan"
-  test "shows chosen resource", %{conn: conn} do
-    nomination = Repo.insert! %Nomination{}
+  test "shows chosen resource", %{conn: conn, user: dan} do
+    nomination = Repo.insert! %Nomination{nominee_id: dan.id, nominated_by_id: dan.id, body: "Booyah"}
     conn = get conn, nomination_path(conn, :show, nomination)
-    assert html_response(conn, 200) =~ "Show nomination"
+    assert html_response(conn, 200) =~ "Booyah"
   end
 
   @tag login_as: "dan"
