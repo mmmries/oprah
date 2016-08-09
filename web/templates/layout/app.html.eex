@@ -18,12 +18,13 @@
           <li><a href="/">Make a Nomination</a></li>
           <li><a href="/users">Users</a></li>
           <li><a href="/nominations">Nominations</a></li>
-         <%= if assigns[:current_user] do %>
-           <li>Ohai, <%= @current_user.name %>!</li>
-           <li><a href="/logout">Logout</a></li>
-         <% else %>
-           <li><a href="/login">Login</a></li>
-         <% end %>
+          <li><a href="/nominations/recent_winners">Winners</a></li>
+          <%= if assigns[:current_user] do %>
+            <li>Ohai, <%= @current_user.name %>!</li>
+            <li><a href="/logout">Logout</a></li>
+          <% else %>
+            <li><a href="/login">Login</a></li>
+          <% end %>
        </ol>
       </header>
 

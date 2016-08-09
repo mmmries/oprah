@@ -1,0 +1,8 @@
+<h1>Recently Recognized Nominations</h1>
+
+<%= for {datetime, nominations} <- @grouped_nominations do %>
+  <h2><%= "#{datetime.year}-#{datetime.month}-#{datetime.day}" %></h2>
+  <%= for nomination <- nominations do %>
+    <%= render "_nomination.html", conn: @conn, current_user: @current_user, nomination: nomination %>
+  <% end %>
+<% end %>

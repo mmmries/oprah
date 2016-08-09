@@ -19,6 +19,16 @@ defmodule Oprah.NominationController do
     render(conn, "pick_a_nominee.html", users: users)
   end
 
+  def recent_winners(conn, _params) do
+    q = from n in Nomination,
+        where: not is_nil(n.awarded_at),
+        preload: [:nominee, :nominated_by],
+        order_by: [desc: n.awarded_at]
+    grouped_nominations = Repo.all(q)
+    |> Enum.group_by(&( &1.awarded_at ))
+    render(conn, "recent_winners.html", grouped_nominations: grouped_nominations)
+  end
+
   def new(conn, %{"nomination" => params}) do
     changeset = Nomination.changeset(%Nomination{}, params)
     render(conn, "new.html", changeset: changeset)
