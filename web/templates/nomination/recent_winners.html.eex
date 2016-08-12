@@ -1,6 +1,11 @@
-<h1>Recently Recognized Nominations</h1>
+<h1>Pick New Winner</h1>
+<h4><%= @number_nominations %> nominations for <%= @number_nominees %> people outstanding</h4>
+<%= link "Pick a Winner", to: nomination_path(@conn, :pick_a_winner) %>
 
-<%= for {datetime, nominations} <- @grouped_nominations do %>
+<h1>Past Winners</h1>
+
+<%= for datetime <- reversed_keys(@grouped_nominations) do %>
+  <% nominations = @grouped_nominations[datetime] %>
   <h2><%= "#{datetime.year}-#{datetime.month}-#{datetime.day}" %></h2>
   <%= for nomination <- nominations do %>
     <%= render "_nomination.html", conn: @conn, current_user: @current_user, nomination: nomination %>
