@@ -30,7 +30,8 @@ defmodule Oprah.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:earmark, "~> 1.0"},
+    [{:credo, "~> 0.4.8"},
+     {:earmark, "~> 1.0"},
      {:phoenix, "~> 1.2.0"},
      {:phoenix_pubsub, "~> 1.0"},
      {:phoenix_ecto, "~> 3.0"},
