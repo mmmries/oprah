@@ -21,17 +21,12 @@ defmodule Oprah.NominationController do
 
   def pick_a_winner(conn, _params) do
     nomination_counts = nomination_counts_by_nominee_id()
-    max_count = Enum.map(nomination_counts_by_nominee_id, &(List.last(&1)) ) |> Enum.max
-    top_candidates = Enum.filter(nomination_counts_by_nominee_id, &(List.last(&1) == max_count))
+    max_count = Enum.map(nomination_counts, &(List.last(&1)) ) |> Enum.max
+    top_candidates = Enum.filter(nomination_counts, &(List.last(&1) == max_count))
                      |> Enum.map(&( hd(&1) ))
     :rand.seed(:exsplus, :erlang.now())
     nominee_id = Enum.random(top_candidates)
-    awarded_at = Ecto.DateTime.from_erl(:calendar.local_time())
-    q = from n in Nomination, where: n.nominee_id == ^nominee_id
-    Enum.each(Repo.all(q), &(
-      Nomination.changeset(&1, %{awarded_at: awarded_at})
-      |> Repo.update!
-    ))
+    mark_unawared_nominations_as_awarded_for_user(nominee_id)
     redirect(conn, to: nomination_path(conn, :recent_winners))
   end
 
@@ -108,6 +103,16 @@ defmodule Oprah.NominationController do
     conn
     |> put_flash(:info, "Nomination deleted successfully.")
     |> redirect(to: nomination_path(conn, :index))
+  end
+
+  defp mark_unawared_nominations_as_awarded_for_user(user_id) do
+    awarded_at = Ecto.DateTime.from_erl(:calendar.local_time())
+    q = from n in Nomination,
+      where: n.nominee_id == ^user_id and is_nil(n.awarded_at)
+    Enum.each(Repo.all(q), &(
+      Nomination.changeset(&1, %{awarded_at: awarded_at})
+      |> Repo.update!
+    ))
   end
 
   defp nomination_counts_by_nominee_id do
