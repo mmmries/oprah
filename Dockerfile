@@ -1,8 +1,9 @@
-FROM elixir:1.3.2
+FROM hqmq/alpine-elixir:0.1
 
-ADD . /oprah
-WORKDIR /oprah
-ENV MIX_ENV prod
-RUN mix local.hex --force && mix local.rebar --force && mix deps.get --only prod && mix compile && mix phoenix.digest
+ENV MIX_ENV=prod
+ADD mix.exs mix.lock ./
+RUN mix do deps.get --only prod, deps.compile
+ADD . .
+RUN mix do compile, phoenix.digest
 
 CMD mix phoenix.server

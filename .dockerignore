@@ -1,3 +1,6 @@
 _build
 node_modules
 .git
+/config/prod.secret.exs
+.github_client_id
+.github_client_secret
