@@ -5,7 +5,7 @@ defmodule Oprah.NominationController do
 
   def index(conn, _params) do
     query = from n in Nomination,
-            where: is_nil(n.awarded_at),
+            where: [eligible_to_win: true],
             preload: [:nominee, :nominated_by],
             order_by: [desc: n.inserted_at]
     nominations = Repo.all(query)
@@ -110,14 +110,14 @@ defmodule Oprah.NominationController do
     q = from n in Nomination,
       where: n.nominee_id == ^user_id and is_nil(n.awarded_at)
     Enum.each(Repo.all(q), &(
-      Nomination.changeset(&1, %{awarded_at: awarded_at})
+      Nomination.changeset(&1, %{awarded_at: awarded_at, eligible_to_win: false})
       |> Repo.update!
     ))
   end
 
   defp nomination_counts_by_nominee_id do
     q = from n in Nomination,
-        where: is_nil(n.awarded_at),
+        where: [eligible_to_win: true],
         select: [n.nominee_id, count(n.id)],
         group_by: n.nominee_id
     Repo.all(q)
