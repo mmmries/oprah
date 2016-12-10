@@ -4,6 +4,7 @@ defmodule Oprah.Nomination do
   schema "nominations" do
     field :body, :string
     field :awarded_at, Ecto.DateTime
+    field :eligible_to_win, :boolean
     belongs_to :nominee, Oprah.User
     belongs_to :nominated_by, Oprah.User
 
@@ -15,7 +16,7 @@ defmodule Oprah.Nomination do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:body, :awarded_at, :nominee_id, :nominated_by_id])
+    |> cast(params, [:body, :awarded_at, :eligible_to_win, :nominee_id, :nominated_by_id])
     |> validate_required([:body, :nominee_id, :nominated_by_id])
     |> do_not_nominate_yourself
   end
