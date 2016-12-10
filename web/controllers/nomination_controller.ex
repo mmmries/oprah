@@ -53,7 +53,7 @@ defmodule Oprah.NominationController do
 
   def create(conn, %{"nomination" => nomination_params}) do
     nomination_params = Map.put(nomination_params, "nominated_by_id", conn.assigns.current_user.id)
-    changeset = Nomination.changeset(%Nomination{}, nomination_params)
+    changeset = Nomination.changeset(%Nomination{eligible_to_win: true}, nomination_params)
 
     case Repo.insert(changeset) do
       {:ok, _nomination} ->

@@ -39,7 +39,8 @@ defmodule Oprah.NominationControllerTest do
     don = Repo.insert!(%User{name: "don"})
     conn = post conn, nomination_path(conn, :create), nomination: valid_attrs(don)
     assert redirected_to(conn) == nomination_path(conn, :index)
-    assert Repo.get_by(Nomination, nominee_id: don.id)
+    nomination = Repo.get_by(Nomination, nominee_id: don.id)
+    assert nomination.eligible_to_win == true
   end
 
   @tag login_as: "dan"
