@@ -4,3 +4,9 @@
 
 <%= link "Edit", to: user_path(@conn, :edit, @user) %>
 <%= link "Back", to: user_path(@conn, :index) %>
+
+<h2>Nominations Received</h2>
+
+<%= for nomination <- @user.nominations_received do %>
+  <%= render Oprah.NominationView, "_nomination.html", conn: @conn, current_user: @current_user, nomination: nomination %>
+<% end %>

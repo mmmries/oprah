@@ -20,7 +20,7 @@
           <li><a href="/nominations">Nominations</a></li>
           <li><a href="/nominations/recent_winners">Winners</a></li>
           <%= if assigns[:current_user] do %>
-            <li>Ohai, <%= @current_user.name %>!</li>
+            <li>Ohai, <%= link @current_user.name, to: user_path(@conn, :show, @current_user) %>!</li>
             <li><a href="/logout">Logout</a></li>
           <% else %>
             <li><a href="/login">Login</a></li>

@@ -12,5 +12,6 @@
       <%= link "Edit", to: nomination_path(@conn, :edit, @nomination), class: "btn btn-default btn-xs" %>
       <%= link "Delete", to: nomination_path(@conn, :delete, @nomination), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
     <% end %>
+    <%= @nomination.inserted_at %>
   </div>
 </div>
