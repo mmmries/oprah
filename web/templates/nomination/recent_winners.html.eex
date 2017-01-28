@@ -1,7 +1,8 @@
 <h1>Pick New Winner</h1>
 <h4><%= @number_nominations %> nominations for <%= @number_nominees %> people outstanding</h4>
 <%= link "Pick a Winner", to: nomination_path(@conn, :pick_a_winner) %>
-<%= link "Clear Eligible Nominations", to: nomination_path(@conn, :clear_eligible_nominations), data: [confirm: "Are you sure? These should only be cleared after picking a set of winners"] %>
+<br/><br/>
+<%= link "Clear Eligible Nominations", to: nomination_path(@conn, :clear_eligible_nominations), id: "clear_eligible_nominations" %>
 
 <h1>Past Winners</h1>
 

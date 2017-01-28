@@ -7,7 +7,7 @@ defmodule Oprah.NominationController do
     query = from n in Nomination,
             where: [eligible_to_win: true]
     Repo.update_all(query, set: [eligible_to_win: false])
-    recent_winners(conn, %{})
+    redirect(conn, to: nomination_path(conn, :recent_winners))
   end
 
   def index(conn, _params) do

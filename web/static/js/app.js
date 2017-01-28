@@ -19,3 +19,14 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+
+document.getElementById("clear_eligible_nominations").addEventListener('click',
+  function(e){
+    if(confirm("are you sure?")) {
+      return true;
+    } else {
+      e.preventDefault();
+      return false;
+    }
+  }
+);
