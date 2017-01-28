@@ -3,6 +3,13 @@ defmodule Oprah.NominationController do
   alias Oprah.Nomination
   plug :require_current_user when action != :pick_a_nominee
 
+  def clear_eligible_nominations(conn, _params) do
+    query = from n in Nomination,
+            where: [eligible_to_win: true]
+    Repo.update_all(query, set: [eligible_to_win: false])
+    recent_winners(conn, %{})
+  end
+
   def index(conn, _params) do
     query = from n in Nomination,
             where: [eligible_to_win: true],
@@ -108,7 +115,7 @@ defmodule Oprah.NominationController do
   defp mark_unawared_nominations_as_awarded_for_user(user_id) do
     awarded_at = Ecto.DateTime.from_erl(:calendar.local_time())
     q = from n in Nomination,
-      where: n.nominee_id == ^user_id and is_nil(n.awarded_at)
+      where: n.nominee_id == ^user_id and is_nil(n.awarded_at) and n.eligible_to_win == true
     Enum.each(Repo.all(q), &(
       Nomination.changeset(&1, %{awarded_at: awarded_at, eligible_to_win: false})
       |> Repo.update!

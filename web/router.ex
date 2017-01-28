@@ -22,6 +22,7 @@ defmodule Oprah.Router do
     get "/logout", SessionController, :logout
     get "/nominations/recent_winners", NominationController, :recent_winners
     get "/nominations/pick_a_winner", NominationController, :pick_a_winner
+    get "/nominations/clear_eligible_nominations", NominationController, :clear_eligible_nominations
     resources "/users", UserController
     resources "/nominations", NominationController
   end
