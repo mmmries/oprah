@@ -1,12 +1,12 @@
 use Mix.Config
 
 listen_port = case System.get_env("LISTEN_PORT") do
-  nil -> 4000,
+  nil -> 4000
   str -> String.to_integer(str)
 end
 
 public_port = case System.get_env("PUBLIC_PORT") do
-  nil -> 443,
+  nil -> 443
   str -> String.to_integer(str)
 end
 
