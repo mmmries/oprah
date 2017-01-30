@@ -2,11 +2,11 @@ defmodule Oprah.ErrorView do
   use Oprah.Web, :view
 
   def render("404.html", _assigns) do
-    "Page not found"
+    {:safe, "<html><body><h1>Page not found</h1><br/><img src='/images/i_will_not_accept_that.gif' /></body></html>"}
   end
 
   def render("500.html", _assigns) do
-    "Internal server error"
+    {:safe, "<html><body><h1>Internal server error</h1><br/><img src='/images/i_will_not_accept_that.gif' /></body></html>"}
   end
 
   # In case no render clause matches or no
