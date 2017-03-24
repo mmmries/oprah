@@ -17,7 +17,7 @@ First you'll need a postgres instance with a database named `oprah_dev`.
 If you don't have one hand you can do something like:
 
 ```
-docker run -d --name oprah_db -v /var/lib/oprah_db:/var/lib/postgresql/data postgres:9.5
+docker run -d --name oprah_dev -v /var/lib/oprah_dev:/var/lib/postgresql/data postgres:9.5
 ```
 
 Next you need a docker image.
@@ -34,7 +34,18 @@ git push --tags
 Finally we start the docker and give it the necessary environment variables:
 
 ```
-docker run --name oprah -d -p 4000:4000 -e PORT=4000 -e GITHUB_CLIENT_ID=123 -e GITHUB_CLIENT_SECRET=123 -e SECRETE_KEY_BASE=123 -e POSTGRES_USERNAME=pguser -e POSTGRES_PASSWORD=pgpass -e POSTGRES_HOST=localhost hqmq/oprah:0.1.0
+docker run --name oprah -d -p 4000:4000 -e PORT=4000\
+-e AUTH_CLIENT_ID=123\
+-e AUTH_CLIENT_SECRET=123\
+-e AUTH_SITE=http://localhost:4000/\
+-e AUTH_AUTHORIZE_URL=http://localhost:4000/oauth/authorize\
+-e AUTH_TOKEN_URL=http://localhost:4000/oauth/token\
+-e SECRETE_KEY_BASE=123\
+-e REPO_USERNAME=pguser\
+-e REPO_PASSWORD=pgpass\
+-e REPO_HOSTNAME=localhost\
+-e REPO_DATABASE=oprah_production\
+hqmq/oprah:0.1.0
 ```
 
 
