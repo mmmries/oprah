@@ -42,9 +42,9 @@ config :oprah, Oprah.Repo,
   hostname: "localhost",
   pool_size: 10
 
-config :ueberauth, Ueberauth.Strategy.Github.OAuth,
-  client_id: String.trim(File.read!(".github_client_id")),
-  client_secret: String.trim(File.read!(".github_client_secret")),
-  site: "https://git.moneydesktop.com/api/v3",
-  authorize_url: "https://git.moneydesktop.com/login/oauth/authorize",
-  token_url: "https://git.moneydesktop.com/login/oauth/access_token"
+config :ueberauth, Ueberauth.Strategy.Gitlab.OAuth,
+  client_id: String.trim(File.read!(".gitlab_client_id")),
+  client_secret: String.trim(File.read!(".gitlab_client_secret")),
+  site: "https://gitlab.mx.com/",
+  authorize_url: "https://gitlab.mx.com/oauth/authorize",
+  token_url: "https://gitlab.mx.com/oauth/token"

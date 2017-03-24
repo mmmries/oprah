@@ -24,7 +24,7 @@ config :logger, :console,
 
 config :ueberauth, Ueberauth,
   providers: [
-    github: {Ueberauth.Strategy.Github, [default_scope: "", uid_field: :id]}
+    gitlab: {Ueberauth.Strategy.Gitlab, [uid_field: :id]}
   ]
 
 # Import environment specific config. This must remain at the bottom

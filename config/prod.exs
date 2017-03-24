@@ -40,7 +40,7 @@ config :oprah, Oprah.Repo,
   pool_size: 10,
   ssl: true
 
-config :ueberauth, Ueberauth.Strategy.Github.OAuth,
+config :ueberauth, Ueberauth.Strategy.Gitlab.OAuth,
   client_id: auth_client_id,
   client_secret: auth_client_secret,
   site: auth_site,
@@ -49,4 +49,3 @@ config :ueberauth, Ueberauth.Strategy.Github.OAuth,
 
 # Do not print debug messages in production
 config :logger, level: :info
-

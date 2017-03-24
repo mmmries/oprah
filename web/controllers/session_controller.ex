@@ -3,7 +3,7 @@ defmodule Oprah.SessionController do
   plug Ueberauth
 
   def login(conn, _params) do
-    redirect(conn, to: "/auth/github")
+    redirect(conn, to: "/auth/gitlab")
   end
 
   def logout(conn, _params) do
