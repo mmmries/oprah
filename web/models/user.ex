@@ -3,6 +3,8 @@ defmodule Oprah.User do
 
   schema "users" do
     field :name, :string
+    field :github_id, :integer
+    field :gitlab_id, :integer
     has_many :nominations_received, Oprah.Nomination, foreign_key: :nominee_id
     has_many :nominations_given, Oprah.Nomination, foreign_key: :nominated_by_id
     timestamps()
@@ -13,7 +15,7 @@ defmodule Oprah.User do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name])
+    |> cast(params, [:name, :github_id, :gitlab_id])
     |> validate_required([:name])
     |> validate_length(:name, min: 4, max: 20)
     |> unique_constraint(:name)
