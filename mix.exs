@@ -19,7 +19,7 @@ defmodule Oprah.Mixfile do
   def application do
     [mod: {Oprah, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :ueberauth_github]]
+                    :phoenix_ecto, :postgrex, :ueberauth_gitlab]]
   end
 
   # Specifies which paths to compile per environment.
@@ -41,10 +41,9 @@ defmodule Oprah.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      # locking this down, until we I can figure out how to upgrade safely
-      {:ueberauth_github, "0.2.0"},
-      {:ueberauth, "0.3.0"},
-      {:oauth2, "0.6.0"},
+      {:ueberauth_gitlab, "~> 0.1"},
+      {:ueberauth, ">= 0.3.0"},
+      {:oauth2, ">= 0.6.0"},
     ]
   end
 

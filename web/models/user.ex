@@ -21,11 +21,11 @@ defmodule Oprah.User do
     |> unique_constraint(:name)
   end
 
-  def user_from_uberauth_info(uid, name) do
-    case Repo.get(User, uid) do
-      nil -> Repo.insert!(%User{id: uid, name: name})
+  def user_from_uberauth_info(gitlab_id, name) do
+    case Repo.get_by(User, gitlab_id: gitlab_id) do
+      nil -> Repo.insert!(%User{gitlab_id: gitlab_id, name: name})
       user ->
-        cast(user, %{name: name}, [:name])
+        cast(user, %{gitlab_id: gitlab_id, name: name}, [:gitlab_id, :name])
         |> Oprah.Repo.update!
       end
   end
