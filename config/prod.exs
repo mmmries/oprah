@@ -37,7 +37,7 @@ config :oprah, Oprah.Repo,
   password: repo_password,
   database: repo_database,
   hostname: repo_hostname,
-  pool_size: 10,
+  pool_size: 4,
   ssl: true
 
 config :ueberauth, Ueberauth.Strategy.Github.OAuth,
