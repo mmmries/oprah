@@ -58,7 +58,7 @@ defmodule Oprah.Web do
       import Oprah.Gettext
 
       def avatar(user, size \\ 20) do
-        tag :img, src: "https://git.moneydesktop.com/avatars/u/#{user.id}", width: size
+        tag :img, src: user.avatar_url, width: size
       end
 
       def markdown_render(str) do
