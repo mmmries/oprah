@@ -10,6 +10,8 @@ defmodule Oprah.State do
     end
   end
 
+  def user_all(state), do: {:ok, state, [], state.users}
+
   def user_upsert_by_gitlab_id(state, %Oprah.User{gitlab_id: gitlab_id}=user) do
     case Enum.find(state.users, &( &1.gitlab_id == gitlab_id )) do
       nil ->
