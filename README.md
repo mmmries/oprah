@@ -39,20 +39,45 @@ docker run --name oprah -d -p 4000:4000 -e PORT=4000\
 -e AUTH_CLIENT_SECRET=123\
 -e AUTH_SITE=http://localhost:4000/\
 -e AUTH_AUTHORIZE_URL=http://localhost:4000/oauth/authorize\
--e AUTH_TOKEN_URL=http://localhost:4000/oauth/token\
--e SECRETE_KEY_BASE=123\
--e REPO_USERNAME=pguser\
--e REPO_PASSWORD=pgpass\
--e REPO_HOSTNAME=localhost\
--e REPO_DATABASE=oprah_production\
+-e AUTH_TOKEN_URL=http://localhost:4000/oauth/token
 hqmq/oprah:0.1.0
 ```
 
 
-## Learn more
+## Events
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+This application uses an event stream to build up an in-memory data structure that represents the current state of the application.
+The best way to understand the application is to understand the events that make it up.
+
+__New User__
+
+This event generally occurs when a new user authenticates via oauth.
+
+```json
+{
+  "occured_at": "2017-07-01T23:50:07.123Z",
+  "type": "new_user",
+  "data": {
+    "avatar_url":" https://secure.gravatar.com/avatar/6e4118591d545eb136c28f2793711698?s=80&d=identicon",
+    "gitlab_id": 1234,
+    "id": "ClyCcm-tCggjRSojr8QKmA==",
+    "name": "Michael Ries"
+  }
+}
+```
+
+__Nomination__
+
+One teammate nominating another teammate.
+
+```json
+{
+  "occured_at": "2017-07-05T16:13:22.000Z",
+  "type": "nomination",
+  "data": {
+    "body": "some markdown text",
+    "nominated_by": "AijYMnNNyG5BQaawdtQnaQ==",
+    "nominee": "F3aIEr0mlE_LzolrBJehww=="
+  }
+}
+```
