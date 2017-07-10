@@ -8,12 +8,10 @@ defmodule Oprah do
 
     # Define workers and child supervisors to be supervised
     children = [
-      # Start the Ecto repository
-      supervisor(Oprah.Repo, []),
       # Start the endpoint when the application starts
       supervisor(Oprah.Endpoint, []),
       # Start your own worker by calling: Oprah.Worker.start_link(arg1, arg2, arg3)
-      # worker(Oprah.Worker, [arg1, arg2, arg3]),
+      worker(Oprah.Image, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

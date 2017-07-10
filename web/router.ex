@@ -7,7 +7,7 @@ defmodule Oprah.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug Oprah.Auth, repo: Oprah.Repo
+    plug Oprah.Auth
   end
 
   pipeline :api do
