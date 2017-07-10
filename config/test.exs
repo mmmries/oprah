@@ -8,12 +8,3 @@ config :oprah, Oprah.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
-
-# Configure your database
-config :oprah, Oprah.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "oprah_test",
-  hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox

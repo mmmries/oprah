@@ -13,9 +13,9 @@ defmodule Oprah.UserControllerTest do
 
   @tag login_as: "dan"
   test "shows chosen resource", %{conn: conn} do
-    user = Repo.insert! %User{name: "Burt Macklin"}
+    {:ok, user} = Image.get_user("don")
     conn = get conn, user_path(conn, :show, user)
-    assert html_response(conn, 200) =~ "Burt Macklin"
+    assert html_response(conn, 200) =~ "Don"
   end
 
   @tag login_as: "dan"
