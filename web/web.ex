@@ -16,30 +16,15 @@ defmodule Oprah.Web do
   below.
   """
 
-  def model do
-    quote do
-      use Ecto.Schema
-
-      import Ecto
-      import Ecto.Changeset
-      import Ecto.Query
-
-      alias Oprah.{Repo,User}
-    end
-  end
-
   def controller do
     quote do
       use Phoenix.Controller
 
-      alias Oprah.Repo
-      alias Oprah.User
-      import Ecto
-      import Ecto.Query
-
       import Oprah.Router.Helpers
       import Oprah.Gettext
       import Oprah.Auth, only: [require_current_user: 2]
+      alias Oprah.Image
+      alias Oprah.User
     end
   end
 
@@ -83,9 +68,6 @@ defmodule Oprah.Web do
     quote do
       use Phoenix.Channel
 
-      alias Oprah.Repo
-      import Ecto
-      import Ecto.Query
       import Oprah.Gettext
     end
   end

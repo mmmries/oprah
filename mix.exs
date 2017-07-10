@@ -17,8 +17,7 @@ defmodule Oprah.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Oprah, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :ueberauth_gitlab]]
+     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext, :ueberauth_gitlab]]
   end
 
   # Specifies which paths to compile per environment.
