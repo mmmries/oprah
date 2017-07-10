@@ -16,18 +16,15 @@ defmodule Oprah.ConnCase do
   use ExUnit.CaseTemplate
   import Oprah.TestHelpers
   import Plug.Conn
+  alias Oprah.Image
 
   using do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
 
-      alias Oprah.Repo
-      import Ecto
-      import Ecto.Changeset
-      import Ecto.Query
-
       import Oprah.Router.Helpers
+      alias Oprah.Image
 
       # The default endpoint for testing
       @endpoint Oprah.Endpoint
@@ -35,15 +32,9 @@ defmodule Oprah.ConnCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Oprah.Repo)
-
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Oprah.Repo, {:shared, self()})
-    end
-
     conn = Phoenix.ConnTest.build_conn()
     if tags[:login_as] do
-      user = insert_user(tags[:login_as])
+      {:ok, user} = Image.get_user(tags[:login_as])
       {:ok, conn: assign(conn, :current_user, user), user: user}
     else
       {:ok, conn: conn}
