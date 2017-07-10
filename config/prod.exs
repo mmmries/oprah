@@ -14,11 +14,6 @@ public_host = System.get_env("HOST") || "oprah.riesd.com"
 
 secret_key_base = System.get_env("SECRET_KEY_BASE")
 
-repo_username = System.get_env("REPO_USERNAME")
-repo_password = System.get_env("REPO_PASSWORD")
-repo_database = System.get_env("REPO_DATABASE")
-repo_hostname = System.get_env("REPO_HOSTNAME")
-
 auth_client_id = System.get_env("AUTH_CLIENT_ID")
 auth_client_secret = System.get_env("AUTH_CLIENT_SECRET")
 auth_site = System.get_env("AUTH_SITE")
@@ -30,15 +25,6 @@ config :oprah, Oprah.Endpoint,
   url: [host: public_host, port: public_port],
   cache_static_manifest: "priv/static/manifest.json",
   secret_key_base: secret_key_base
-
-config :oprah, Oprah.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: repo_username,
-  password: repo_password,
-  database: repo_database,
-  hostname: repo_hostname,
-  pool_size: 4,
-  ssl: true
 
 config :ueberauth, Ueberauth.Strategy.Gitlab.OAuth,
   client_id: auth_client_id,

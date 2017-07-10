@@ -33,15 +33,6 @@ config :logger, :console, format: "[$level] $message\n"
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
 
-# Configure your database
-config :oprah, Oprah.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "oprah_dev",
-  hostname: "localhost",
-  pool_size: 10
-
 config :ueberauth, Ueberauth.Strategy.Gitlab.OAuth,
   client_id: String.trim(File.read!(".gitlab_client_id")),
   client_secret: String.trim(File.read!(".gitlab_client_secret")),
