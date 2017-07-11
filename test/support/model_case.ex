@@ -1,4 +1,5 @@
 defmodule Oprah.ModelCase do
+  alias Oprah.State
   @moduledoc """
   This module defines the test case to be used by
   model tests.
@@ -12,6 +13,10 @@ defmodule Oprah.ModelCase do
   of the test unless the test case is marked as async.
   """
 
+  @fixture_state "test/support/fixture.jsonstream"
+                 |> Oprah.EventFileParser.stream_from_file
+                 |> Enum.reduce(%State{}, &State.apply_event/2)
+
   use ExUnit.CaseTemplate
 
   using do
@@ -21,6 +26,7 @@ defmodule Oprah.ModelCase do
   end
 
   setup tags do
+    :ok = GenServer.call(Oprah.Image, {:set_state_to, @fixture_state})
     :ok
   end
 end

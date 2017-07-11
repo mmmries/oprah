@@ -23,7 +23,7 @@ defmodule Oprah.State do
         new_state = Map.put(state, :users, [user | state.users])
         new_user_event = %{
           type: :new_user,
-          occured_at: DateTime.utc_now |> DateTime.to_iso8601,
+          occured_at: DateTime.utc_now,
           data: user,
         }
         {:ok, new_state, [new_user_event], user}

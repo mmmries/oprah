@@ -1,5 +1,5 @@
 defmodule Oprah.ImageTest do
-  use ExUnit.Case
+  use Oprah.ModelCase
   alias Oprah.Image
 
   test "can find a user" do

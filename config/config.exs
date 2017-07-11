@@ -17,7 +17,7 @@ config :oprah, Oprah.Endpoint,
   pubsub: [name: Oprah.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
-config :oprah, :event_file, "config/#{Mix.env}.jsonstream"
+config :oprah, :event_file, "db/#{Mix.env}.jsonstream"
 
 # Configures Elixir's Logger
 config :logger, :console,
