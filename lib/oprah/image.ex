@@ -14,13 +14,7 @@ defmodule Oprah.Image do
   def start_link, do: GenServer.start_link(__MODULE__, nil, name: __MODULE__)
 
   def init(nil) do
-    state = case Mix.env do
-      :dev ->
-        user = %Oprah.User{id: "b7AyXJu-PwlXTNdcfIPYjw==", name: "mmmries", gitlab_id: 69}
-        {:ok, state, _, _} = State.user_upsert_by_gitlab_id(%State{}, user)
-        state
-      _ -> %State{}
-    end
+    state = load_state_from_event_file()
     {:ok, state}
   end
 
@@ -33,5 +27,11 @@ defmodule Oprah.Image do
   def handle_call(command, _from, state) do
     {:ok, state, _events, result} = apply(State, command, [state])
     {:reply, {:ok, result}, state}
+  end
+
+  defp load_state_from_event_file do
+    Application.get_env(:oprah, :event_file)
+    |> Oprah.EventFileParser.stream_from_file
+    |> Enum.reduce(%State{}, &State.apply_event/2)
   end
 end

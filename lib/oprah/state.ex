@@ -3,6 +3,11 @@ defmodule Oprah.State do
             users: [],
             awards: []
 
+  def apply_event(%{type: :new_user, data: attributes}, state) do
+    user = Map.merge(%Oprah.User{}, attributes)
+    Map.put(state, :users, [user | state.users])
+  end
+
   def get_user(state, id) do
     case Enum.find(state.users, &( &1.id == id )) do
       nil -> {:error, :not_found}

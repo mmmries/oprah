@@ -26,6 +26,8 @@ config :oprah, Oprah.Endpoint,
   cache_static_manifest: "priv/static/manifest.json",
   secret_key_base: secret_key_base
 
+config :oprah, :event_file, "/opt/db/prod.jsonstream"
+
 config :ueberauth, Ueberauth.Strategy.Gitlab.OAuth,
   client_id: auth_client_id,
   client_secret: auth_client_secret,
