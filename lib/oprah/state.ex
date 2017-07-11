@@ -3,8 +3,7 @@ defmodule Oprah.State do
             users: [],
             awards: []
 
-  def apply_event(%{type: :new_user, data: attributes}, state) do
-    user = Map.merge(%Oprah.User{}, attributes)
+  def apply_event(%{type: :new_user, data: user}, state) do
     Map.put(state, :users, [user | state.users])
   end
 
@@ -20,12 +19,12 @@ defmodule Oprah.State do
   def user_upsert_by_gitlab_id(state, %Oprah.User{gitlab_id: gitlab_id}=user) do
     case Enum.find(state.users, &( &1.gitlab_id == gitlab_id )) do
       nil ->
-        new_state = Map.put(state, :users, [user | state.users])
         new_user_event = %{
           type: :new_user,
           occured_at: DateTime.utc_now,
           data: user,
         }
+        new_state = apply_event(new_user_event, state)
         {:ok, new_state, [new_user_event], user}
       existing_user ->
         {:ok, state, [], existing_user}

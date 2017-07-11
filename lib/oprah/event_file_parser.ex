@@ -14,10 +14,13 @@ defmodule Oprah.EventFileParser do
 
   defp json_map_to_event(map) do
     {:ok, occured_at, 0} = map |> Map.fetch!("occured_at") |> DateTime.from_iso8601
+    type = Map.fetch!(map, "type") |> String.to_atom
     %{
-      type: Map.fetch!(map, "type") |> String.to_atom,
+      type: type,
       occured_at: occured_at,
-      data: map |> Map.get("data") |> atomize_keys,
+      data: Map.merge(type_to_struct(type), map |> Map.get("data") |> atomize_keys),
     }
   end
+
+  defp type_to_struct(:new_user), do: %Oprah.User{}
 end
